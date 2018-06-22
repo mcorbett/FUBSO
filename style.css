@@ -1,0 +1,27 @@
+input[type=submit] {
+    font-size: 5.5em;
+}
+/* Set a background color to the 'body' element */
+body { 
+    background-color: blue;
+    }
+    
+/* Same as above, but using the CSS 'background' property instead */
+body { 
+    background: blue;
+    }
+    
+/* Setting the text color for the 'h1' element */    
+h1 { 
+    color: blue;
+    }
+
+/* Setting a border color on the 'article' element */
+article { 
+    border-color: blue;
+    }
+
+/* Same as previous, but using the 'border' property instead (also sets border width and style) */    
+article { 
+    border: 1px solid blue;
+    }
