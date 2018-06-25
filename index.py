@@ -22,7 +22,6 @@ def bcl():
    client = docker.from_env()
    dict=client.images.list()
    ac=client.containers.list()
-   acnn=isacNull(ac) # Check that there available containers(ac) is not null.
    d=" " 
    for x in range(len(dict)):
       d=d+(" "+str(dict[x])[9:].replace("'>",'')+"\n")
@@ -53,7 +52,6 @@ def rnaseq():
    client = docker.from_env()
    dict=client.images.list()
    ac=client.containers.list()
-   acnn=isacNull(ac) # Check that there available containers(ac) is not null.
    d=" " 
    for x in range(len(dict)):
       d=d+(" "+str(dict[x])[9:].replace("'>",'')+"\n")
@@ -66,7 +64,7 @@ def rnaseq():
    listed_directory=ld,
    docker_command=dc,
    docker_message=dm,
-   available_containers=acnn,
+   available_containers=ac,
    image_list=il
    )
 
@@ -79,7 +77,6 @@ def truseqamp():
    client = docker.from_env()
    dict=client.images.list()
    ac=client.containers.list()
-   acnn=isacNull(ac) # Check that there available containers(ac) is not null.
    d=" " 
    for x in range(len(dict)):
       d=d+(" "+str(dict[x])[9:].replace("'>",'')+"\n")
@@ -92,7 +89,7 @@ def truseqamp():
    listed_directory=ld,
    docker_command=dc,
    docker_message=dm,
-   available_containers=acnn,
+   available_containers=ac,
    image_list=il
    )
 
@@ -105,7 +102,6 @@ def Enrichment_30():
    client = docker.from_env()
    dict=client.images.list()
    ac=client.containers.list()
-   acnn=isacNull(ac) # Check that there available containers(ac) is not null.
    d=" " 
    for x in range(len(dict)):
       d=d+(" "+str(dict[x])[9:].replace("'>",'')+"\n")
@@ -118,7 +114,7 @@ def Enrichment_30():
    listed_directory=ld,
    docker_command=dc,
    docker_message=dm,
-   available_containers=acnn,
+   available_containers=ac,
    image_list=il
    )
 
