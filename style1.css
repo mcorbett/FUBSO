@@ -1,0 +1,67 @@
+select[value="value"]{
+    display: inline-block;
+    background-color: blueviolet;
+    padding: 3px;
+    font-weight:bold;
+ }
+ 
+ label {
+    display: inline-block;
+    width:200px;
+    float: left;
+  }
+
+ .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+ .selectDefault, .selectDiv option
+{
+    display: inline-block;
+    font-family:arial;
+    font-size:12px;
+}
+
+select option{
+    display: inline-block;
+    font-size: 13pt;
+}
+
+input[type=submit] {
+    font-size: 5.5em;
+}
+/* Set a background color to the 'body' element */
+body { 
+    background-color: whitesmoke;
+    }
+    
+/* Same as above, but using the CSS 'background' property instead */
+body { 
+    background: rgb(236, 225, 225);
+    }
+    
+/* Setting the text color for the 'h1' element */    
+h1 { 
+    color: plum;
+    }
+
+h3 { 
+    color: red;
+    }
+
+/* Setting a border color on the 'article' element */
+article { 
+    border-color:plum;
+    }
+
+/* Same as previous, but using the 'border' property instead (also sets border width and style) */    
+article { 
+    border: 1px solid black;
+    }

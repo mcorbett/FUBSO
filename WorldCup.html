@@ -5,28 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Docker Analysis type</title>
+    <style>
+        @import url("/static/style1.css");
+    </style>
 </head>
 <body>
 <center>
-<h1>You selected {{ analysis_name }}</h1>
+<h2>You selected {{ analysis_name }}</h2>
+<br>
+<h2>Docker containers running now.
+<br>
+{% if available_containers %}
+    <select size="1">
+    {% for i in available_containers: %}
+        <option value={{ i }}>{{ i }}</option>
+    {% endfor %}
+    </select>
+{% else %}
+        <h3>There are no Docker containers running now.</h3>
+{% endif %}
+<br>
+<h2>Docker images available.
+<br>
+{% if image_list %}
+<select size="4">
+      {% for i in image_list: %}
+      <option value={{ i }}>{{ i }}</option>
+{% else %}
+       <h1>'Docker images available in this Docker instance'</h1>
+{% endfor %}
+{% endif %}
+</select>
 <br>
 <br>
+These are the file systems available in {{ listed_directory }}.
+<br>
+{% if available_directories %}
+<select size="4">
+      {% for i in available_directories: %}
+      <option value={{ i }}>{{ i }}</option>
+{% else %}
+       <h1>'There are no directories available in this Docker instance'</h1>
+{% endfor %}
+{% endif %}
+<br>
+</select>
+<center>
+<br>
+<button type="button">Submit file system and Docker image for analaysis</button>
+</h2>
+{{ docker_message }}
 <br>
 <br>
-<h2>These are the Docker images available.
+The Docker command we would pass to os.system is <h5>{{ docker_command }}</h5>
 <br>
-<br>
-<br>
-<br>
-These are the file systems available.</h2>
-<br>
-<br>
-<br>
-<p>
 <a href="http://localhost:5000/FUBSO/">Return to Main</a>
 <br>
 Programmed by {{ programmer }}
 </center>
 </body>
-</html>"""
+</html>
