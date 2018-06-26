@@ -1,12 +1,10 @@
 select[value="value"]{
-    display: inline-block;
     background-color: blueviolet;
     padding: 3px;
     font-weight:bold;
  }
  
  label {
-    display: inline-block;
     width:200px;
     float: left;
   }
@@ -24,13 +22,11 @@ select[value="value"]{
 
  .selectDefault, .selectDiv option
 {
-    display: inline-block;
     font-family:arial;
     font-size:12px;
 }
 
 select option{
-    display: inline-block;
     font-size: 13pt;
 }
 

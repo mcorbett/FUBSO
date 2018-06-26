@@ -1,7 +1,8 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, flash, request, session
 import os, subprocess, docker
 
 app = Flask(__name__)
+app.secret_key = "password"
 
 ld='/data/zurich'
 
@@ -18,14 +19,19 @@ def do_admin_login():
         session['logged_in'] = True
     else:
         flash('wrong password!')
-    return home()
+    return main()
 
 @app.route('/FUBSO/')
 def index():
-   return render_template('index.html')
+    if not session.get('logged_in'):
+       return render_template('login.html')
+    else:
+       return render_template('index.html')
 
 @app.route('/FUBSO/bcl2fastq/')
 def bcl():
+   if not session.get('logged_in'):
+       return render_template('login.html')
    dm="Starting docker container using "+ld+" as input"
    dc="docker run --rm --privileged -i -v "+ld+":/data illumina/bcl2fastq-v2.19.0.316 bcl2fastq  -l TRACE --runfolder-dir  /data/$opt --output-dir /data/150924_ML-P2-12_0014_H003FY_PoolW_TSCA/Samples/Fastq &"
    ad=listdirs(ld)
@@ -56,6 +62,8 @@ def isacNull(l):
 
 @app.route('/FUBSO/RNA-SEQ/')
 def rnaseq():
+   if not session.get('logged_in'):
+       return render_template('login.html')
    dm="Starting docker container using "+ld+" as input"
    dc="docker run --rm --privileged -i -v "+ld+":/data -v /data/genomes_bssh_rnaSeqAlignment_1.1.0:/genomes illumina/isis-rna-seq-2.6.25.18 /opt/illumina/Isis/2.6.25.18/Isis -r /data/$opt &"
    ad=listdirs(ld)
@@ -81,6 +89,8 @@ def rnaseq():
 
 @app.route('/FUBSO/TruSeqAmp/')
 def truseqamp():
+   if not session.get('logged_in'):
+       return render_template('login.html')
    dm="Starting docker container using "+ld+" as input"
    dc="docker run --rm --privileged -i -v "+ld+":/runs -v /data/genomes_bssh_truseqAmplicon_2.0.0:/genomes illumina/truseqamplicon-2.0.0.0  mono /opt/illumina/Isis/2.6.21.7.TruSeqAmplicon/Isis.exe -r /runs/$opt -c 2 -a /runs/$opt/Samples &"
    ad=listdirs(ld)
@@ -104,8 +114,10 @@ def truseqamp():
    image_list=il
    )
 
-@app.route('/FUBSO/Enrichment_30')
+@app.route('/FUBSO/Enrichment_30/')
 def Enrichment_30():
+   if not session.get('logged_in'):
+       return render_template('login.html')
    dm="Starting docker container using "+ld+" as input"
    dc="sudo docker run --privileged --rm -v "+ld+":/data -v /data/genomes_bssh_enrichment_3.0.0:/genomes illumina/enrichment-3.0.0 mono /opt/illumina/Isas/2.10.12/Isas.exe -r /data/$opt"
    ad=listdirs(ld)
@@ -141,5 +153,11 @@ def listdirs(folder):
         if os.path.isdir(d)
     ]
 
+@app.route('/FUBSO/logout/')
+def logout():
+    session['logged_in'] = False
+    return main()
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.secret_key = os.urandom(12)
+    app.run(debug=True,host='0.0.0.0', port=5000)
