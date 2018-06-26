@@ -7,7 +7,18 @@ ld='/data/zurich'
 
 @app.route('/')
 def main():
-    return redirect(url_for('index'))
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/login', methods=['POST'])
+def do_admin_login():
+    if request.form['password'] == 'password' and request.form['username'] == 'admin':
+        session['logged_in'] = True
+    else:
+        flash('wrong password!')
+    return home()
 
 @app.route('/FUBSO/')
 def index():
